@@ -32,13 +32,12 @@ CREATE TABLE Personne OF personne_type (
 )
 
 INSERT INTO Personne VALUES (personne_type(100, 'KADI', 'Sonia', adresse_type(5, 'BENBOUALI Hassiba Béjaia', '06000'), 30));
-INSERT INTO Personne VALUES (enseignant_type('ENS-2010', 'ZAIDI', 'Kamel', adresseWithEmail_type(12, 'DIDOUCHE Mourad Sétif', '19000', 'kzaidi@gmail.com'), 42, 'Proffesseur des universités'));
-INSERT INTO Personne VALUES (etudiant_type('MI-2017-100', 'SALMA', 'Nabil', adresseWithEmail_type(10, 'boulevard KRIM Belkacem Alger', '16000', 'nselmi@gmail.com'), 19, 'MI-100', '2018'));
+INSERT INTO Personne VALUES (enseignant_type('ENS-2010', 'ZAIDI', 'Kamel', adresseWithEmail_type(12, 'DIDOUCHE Mourad', 'Sétif', '19000', 'kzaidi@gmail.com'), 42, 'Proffesseur des universités'));
+INSERT INTO Personne VALUES (etudiant_type('MI-2017-100', 'SALMA', 'Nabil', adresseWithEmail_type(10, 'boulevard KRIM Belkacem', 'Alger', '16000', 'nselmi@gmail.com'), 19, 'MI-100', '2018'));
 
 SELECT * FROM Personne;
-SELECT VALUES(Personne);
-SELECT numero, nom, prenom, adresse.adresseEmail FROM Personne;
-SELECT numero, nom, prenom, grade FROM Personne WHERE Personne IS OF (enseignant_type); -- WHERE grade IS NOT NULL;
-SELECT numero, nom, prenom, numCarteEtudiant, anneeInscription FROM Personne WHERE numCarteEtudiant IS NOT NULL;
-
-SELECT * FROM Personne WHERE Personne IS NOT OF (enseignant_type) AND Personne IS NOT OF (etudiant_type);
+SELECT REF(p) FROM Personne p;
+SELECT p.numero, p.nom, p.prenom, TREAT(p.adresse AS adresseWithEmail_type).adresseEmail FROM Personne p;
+SELECT p.numero, p.nom, p.prenom, TREAT(VALUE(p) AS enseignant_type).grade FROM Personne p WHERE VALUE(p) OF (enseignant_type);
+SELECT p.numero, p.nom, p.prenom, TREAT(VALUE(p) AS etudiant_type).numCarteEtudiant FROM Personne p WHERE VALUE(p)OF (etudiant_type);
+SELECT p.* FROM Personne p WHERE VALUE(p) IS NOT OF (enseignant_type) OR VALUE(p) IS NOT OF(etudiant_type);
