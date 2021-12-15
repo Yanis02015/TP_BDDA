@@ -31,7 +31,7 @@ CREATE TABLE Personne OF personne_type (
     CONSTRAINT c_age CHECK (age BETWEEN 17 AND 60),
 )
 
-INSERT INTO Personne VALUES (personne_type(100, 'KADI', 'Sonia', adresse_type(5, 'BENBOUALI Hassiba Béjaia', '06000'), 30));
+INSERT INTO Personne VALUES (personne_type(100, 'KADI', 'Sonia', adresse_type(5, 'BENBOUALI Hassiba', 'Béjaia', '06000'), 30));
 INSERT INTO Personne VALUES (enseignant_type('ENS-2010', 'ZAIDI', 'Kamel', adresseWithEmail_type(12, 'DIDOUCHE Mourad', 'Sétif', '19000', 'kzaidi@gmail.com'), 42, 'Proffesseur des universités'));
 INSERT INTO Personne VALUES (etudiant_type('MI-2017-100', 'SALMA', 'Nabil', adresseWithEmail_type(10, 'boulevard KRIM Belkacem', 'Alger', '16000', 'nselmi@gmail.com'), 19, 'MI-100', '2018'));
 
