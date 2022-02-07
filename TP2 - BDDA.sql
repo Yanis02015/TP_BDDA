@@ -54,3 +54,15 @@ CREATE TABLE pg_ensm OF pgEnseignant_type (
 INSERT INTO ensm VALUES(cr_type('BDDA', 250, 'O', 'N'));
 
 INSERT INTO salle VALUES(salle_cours_type('B8S22', 'N', 300, 'O', 'N'));
+
+INSERT  INTO pg_ensm VALUES( (SELECT REF(e) FROM ensm e WHERE e.CODE = 'BDDA'), (SELECT REF(p) FROM salle p WHERE p.NUMERO = 'B8S22'), 'Dimanche', 8.0, 9.3);
+
+SELECT p.ref_ensm.code, p.ref_salle.numero FROM pg_ensm p WHERE p.ref_ensm.videopr = 'O' AND p.ref_salle.videopr = 'N';
+
+SELECT DISTINCT(COUNT(p.ref_ensm.code)), p.ref_salle.numero
+FROM pg_ensm p
+GROUP BY (p.ref_salle.numero);
+
+SELECT TREAT(p.ref_salle as REF salle_cours_type).capacite AS "CAPACITÉ"
+FROM pg_ensm p
+WHERE p.jour = "Dimanche";
